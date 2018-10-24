@@ -12,11 +12,12 @@ def rotate(string, n):
     for s in string:
         if i <= len(string):
             new_number = ord(s) + n #finding the ascii value of each char and adding the shift
-            if new_number == n + 32: #checking to see if initial character was a space
-                new_number = 32 #keeping space as a space: I want to add this to the string at this point and keep iterating through the list
-            while new_number < 97: #if the number is not between a and z, getting it back into that range
-                new_number += 26
-            while new_number > 122: #if the number is not between a and z, getting it back into that range
+            if new_number < 97: #if the number is not between a and z, getting it back into that range
+                if new_number == n + 32: #checking if new number was initially a space
+                    new_number = 32 #if so, setting it to be a space
+                else:
+                    new_number += 26 #adding 26 to get it back into a to z range
+            if new_number > 122: #if the number is not between a and z, getting it back into that range
                 new_number -= 26
             new_letter = chr(new_number) #changing ascii number back into letter
             new_string += new_letter #adding letter onto string
