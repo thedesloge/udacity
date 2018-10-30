@@ -1,7 +1,8 @@
 #Finish crawl web
 from add_to_index import add_page_to_index
 
-def get_page(url):
+"""def get_page(url):
+
     # This is a simulated get_page procedure so that you can test your
     # code on two pages "http://xkcd.com/353" and "http://xkcd.com/554".
     # A procedure which actually grabs a page from the web will be 
@@ -14,6 +15,13 @@ def get_page(url):
     except:
         return ""
     return ""
+    """ #removing this to try another version of get_page
+def get_page(url):
+    url = "https://udacity.github.io/cs101x/urank/"
+    request = Request(url)
+    response = urlopen(request)
+    html = response.read()
+    response.close()
 
 def get_next_target(page):
     start_link = page.find('<a href=')
