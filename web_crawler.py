@@ -69,3 +69,14 @@ def crawl_web(seed):
 
 index, graph = crawl_web('https://udacity.github.io/cs101x/urank/')
 print(graph['https://udacity.github.io/cs101x/urank/'])
+
+#The code errors with the following message:
+""""File "web_crawler.py", line 70, in <module>
+    index, graph = crawl_web('https://udacity.github.io/cs101x/urank/')
+  File "web_crawler.py", line 63, in crawl_web
+    add_page_to_index(index, page, content)
+  File "/Users/mattsmelser/Documents/GitHub/udacity/add_to_index.py", line 30, in add_page_to_index
+    words = content.split()
+AttributeError: 'NoneType' object has no attribute 'split'"
+"""
+#I'm not sure what's going on because I can't find the crawl_web function and where it's being called from.
