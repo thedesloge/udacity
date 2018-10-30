@@ -1,5 +1,7 @@
 #Finish crawl web
 from add_to_index import add_page_to_index
+from urllib.request import urlopen, Request
+
 
 """def get_page(url):
 
