@@ -1,5 +1,8 @@
-def popularity(p): #circular definition, will never actually end
-    score = 0
-    for f in friends(p):
-        score += popularity(f)
-    return score
+def popularity(t,p): 
+    if t == 0:
+        return 1
+    else:
+        score = 0
+        for f in friends(p):
+            score += popularity(t-1, f)
+        return score
