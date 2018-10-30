@@ -1,4 +1,5 @@
 #Finish crawl web
+from add_to_index import add_page_to_index
 
 def get_page(url):
     # This is a simulated get_page procedure so that you can test your
@@ -44,13 +45,17 @@ def crawl_web(seed):
     tocrawl = [seed]
     crawled = []
     index = []
+    graph = {}
     while tocrawl:
         page = tocrawl.pop()
         if page not in crawled:
             content = get_page(page)
             add_page_to_index(index, page, content)
-            union(tocrawl, get_all_links(content))
+            outlinks = get_all_links(content)
+            graph[page] = outlinks
+            union(tocrawl, outlinks)
             crawled.append(page)
-    return index
+    return index, graph
 
-
+index, graph = crawl_web('https://udacity.github.io/cs101x/urank/')
+print(graph['https://udacity.github.io/cs101x/urank/'])

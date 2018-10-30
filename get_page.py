@@ -1,7 +1,10 @@
 from urllib.request import urlopen, Request
-url = "http://www.gutenberg.org/cache/epub/1661/pg1661.txt"
-request = Request(url)
-response = urlopen(request)
-html = response.read()
-response.close()
+def get_page(url):
+    url = "https://udacity.github.io/cs101x/urank/"
+    request = Request(url)
+    response = urlopen(request)
+    html = response.read()
+    response.close()
+
+print(get_page('https://udacity.github.io/cs101x/urank/'))
 
