@@ -14,11 +14,16 @@
 
 
 def make_converter(match, replacement):
-
-
+    return [match, replacement]
 
 def apply_converter(converter, string):
-
+    previous = None
+    while previous != string:
+        previous = string
+        position = string.find(converter[0])
+        if position != -1:
+            string = string[:position] + converter[1] + string[position + len(converter[0]):]
+    return string
 
 
 # For example,
