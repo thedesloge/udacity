@@ -22,23 +22,28 @@ swedish = {1:"januari", 2:"februari", 3:"mars", 4:"april", 5:"maj",
 
 # Hint: int('12') converts the string '12' to the integer 12.
 
-def date_converter(dic, date):
+def date_converter(dict, date):
     split_date = date.split("/")
     date = split_date[1]
     year = split_date[2]
     month = int(split_date[0])
-    for mon in dic:
+    for mon in dict:
         #print("test1")
         #print (month, mon)
         #print(type(month), type(mon))
         if mon == month:
             #print("Test2")
             #print (dic[mon])
-            month = dic[mon]
+            month = dict[mon]
     return date + " " + month + " " + year
 
+def date_converter2(dict, date):
+    day, month, year = date.split("/")
+    return date + " " + dict[int(month)] + " " + year
 
-print (date_converter(english, '5/11/2012'))
+
+
+print (date_converter2(english, '5/11/2012'))
 #>>> 11 May 2012
 
 print (date_converter(english, '5/11/12'))
