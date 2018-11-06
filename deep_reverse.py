@@ -13,20 +13,28 @@
 def is_list(p):
     return isinstance(p, list)
 
-def deep_reverse():
+def deep_reverse(input):
+    if is_list(input):
+        result = []
+        for  i in range(len(input) -1, -1, -1):
+            result.append(deep_reverse(input[i]))
+        return result
+    else:
+        return input
+
 
 
 
 #For example,
 
 p = [1, [2, 3, [4, [5, 6]]]]
-print deep_reverse(p)
+print (deep_reverse(p))
 #>>> [[[[6, 5], 4], 3, 2], 1]
-print p
+print (p)
 #>>> [1, [2, 3, [4, [5, 6]]]]
 
 q =  [1, [2,3], 4, [5,6]]
-print deep_reverse(q)
+print (deep_reverse(q))
 #>>> [ [6,5], 4, [3, 2], 1]
-print q
+print (q)
 #>>> [1, [2,3], 4, [5,6]]
