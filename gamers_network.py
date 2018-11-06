@@ -93,7 +93,24 @@ Freda likes to play Starfleet Commander, Ninja Hamsters, Seahorse Adventures."
 # Return:
 #   The newly created network data structure
 def create_data_structure(string_input):
-    return network
+    split_input = string_input.split(".")
+    connections = []
+    likes = []
+    counter = 0
+    for element in split_input:
+        if "connected" in element:
+            connections.append(element)
+        else:
+            likes.append(element)
+
+        """if counter % 2 == 0:
+            connections.append(element)
+        else:
+            likes.append(element)
+        counter += 1"""
+    print (connections)
+    print(likes)
+    #return network
 
 # ----------------------------------------------------------------------------- # 
 # Note that the first argument to all procedures below is 'network' This is the #
@@ -251,7 +268,7 @@ def find_path_to_friend(network, user_A, user_B):
 # Replace this with your own procedure! You can also uncomment the lines below
 # to see how your code behaves. Have fun!
 
-#net = create_data_structure(example_input)
+net = create_data_structure(example_input)
 #print net
 #print get_connections(net, "Debra")
 #print get_connections(net, "Mercedes")
