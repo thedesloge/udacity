@@ -10,42 +10,36 @@
 def longest_repetition(input):
     if input == []:
         return None
-    longest = None # value of longest repeated string of characters
-    longest_number = 0 # number of longest string of characters
-    potential = 0 #potential new longest char, keeping count for us
-    n = 0 #iterator through the list "input"
-    current = input[n] #current value of input at n
-    next = input[n+1] #next value for comparison
+    best_element = None # value of longest repeated string of characters
+    length = 0 # number of characters in longest string
+    current_length = 0 #potential new longest char, keeping count for us
+    current = None #current value
     for entry in input:
-        if current == next:
-            print (current, next, longest)
-            potential += 1
-            longest_number += 1
-            n += 1
-            if current != next:
-                if potential > longest_number:
-                    longest = current
-                #feels like something else goes here, just can't figure out what
-                n+= 1
+        if current != entry:
+            current = entry
+            current_length = 1
         else:
-            #print (current, next, longest)
-            current = next
-            n += 1
-            longest = current
-    return longest
+            current_length += 1
+        if current_length > length:
+            best_element = current
+            length = current_length
+    return best_element
 
+
+
+        
 
 #For example,
 
 print (longest_repetition([1, 2, 2, 3, 3, 3, 2, 2, 1]))
 # 3
 
-#print (longest_repetition(['a', 'b', 'b', 'b', 'c', 'd', 'd', 'd']))
+print (longest_repetition(['a', 'b', 'b', 'b', 'c', 'd', 'd', 'd']))
 # b
 
-#print (longest_repetition([1,2,3,4,5]))
+print (longest_repetition([1,2,3,4,5]))
 # 1
 
-#print (longest_repetition([]))
+print (longest_repetition([]))
 # None
 
