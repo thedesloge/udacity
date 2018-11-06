@@ -13,12 +13,12 @@ def longest_repetition(input):
     longest = None # value of longest repeated string of characters
     longest_number = 0 # number of longest string of characters
     potential = 0 #potential new longest char, keeping count for us
-    n = 0 #iterator
+    n = 0 #iterator through the list "input"
     current = input[n] #current value of input at n
     next = input[n+1] #next value for comparison
     for entry in input:
         if current == next:
-            #print (current, next, longest)
+            print (current, next, longest)
             potential += 1
             longest_number += 1
             n += 1
@@ -31,6 +31,7 @@ def longest_repetition(input):
             #print (current, next, longest)
             current = next
             n += 1
+            longest = current
     return longest
 
 
