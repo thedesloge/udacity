@@ -113,7 +113,7 @@ def create_data_structure(string_input):  #this section is complete and returns 
     network.append(likes) #append likes to the network list
     #print (connections)
     #print(likes)
-    print(network)
+    #print(network) #this will print the network
     return network #return the network list so we can use it below
 
 # ----------------------------------------------------------------------------- # 
@@ -136,7 +136,25 @@ def create_data_structure(string_input):  #this section is complete and returns 
 #   - If the user has no connections, return an empty list.
 #   - If the user is not in network, return None.
 def get_connections(network, user):
-	return []
+    connections = []
+    imported_list = [network[0]]
+    for element in imported_list:
+        person, connections_string = element.split("is connected to")
+        connections = connections_string.split(",")
+        cleaned_list = []
+        for connection in connections:
+            cleaned_list.append(connection.strip())
+    graph = [person.strip(), cleaned_list]
+    print(graph)
+
+            #print(element)
+        #print(imported_list)
+    #print(connections)
+
+    #print(imported_list)
+    
+    
+    return [connections]
 
 # ----------------------------------------------------------------------------- 
 # get_games_liked(network, user): 
@@ -273,13 +291,13 @@ def find_path_to_friend(network, user_A, user_B):
 # to see how your code behaves. Have fun!
 
 net = create_data_structure(example_input)
-#print net
-#print get_connections(net, "Debra")
-#print get_connections(net, "Mercedes")
-#print get_games_liked(net, "John")
-#print add_connection(net, "John", "Freda")
-#print add_new_user(net, "Debra", []) 
-#print add_new_user(net, "Nick", ["Seven Schemers", "The Movie: The Game"]) # True
-#print get_secondary_connections(net, "Mercedes")
-#print count_common_connections(net, "Mercedes", "John")
-#print find_path_to_friend(net, "John", "Ollie")
+#print (net)
+print (get_connections(net, "Debra"))
+#print (get_connections(net, "Mercedes"))
+#print (get_games_liked(net, "John"))
+#print (add_connection(net, "John", "Freda"))
+#print (add_new_user(net, "Debra", [])) 
+#print (add_new_user(net, "Nick", ["Seven Schemers", "The Movie: The Game"])) # True
+#print (get_secondary_connections(net, "Mercedes"))
+#print (count_common_connections(net, "Mercedes", "John"))
+#print (find_path_to_friend(net, "John", "Ollie"))
