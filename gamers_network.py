@@ -92,25 +92,29 @@ Freda likes to play Starfleet Commander, Ninja Hamsters, Seahorse Adventures."
 # 
 # Return:
 #   The newly created network data structure
-def create_data_structure(string_input):
-    split_input = string_input.split(".")
-    connections = []
+def create_data_structure(string_input):  #this section is complete and returns the list of lists "network[[connections],[likes]]""
+    split_input = string_input.split(".")  #splits "string_input" list into two lists, connections and likes, then appends them together
+    connections = []                       #into the bigger list "network"
     likes = []
+    network = []
     counter = 0
-    for element in split_input:
-        if "connected" in element:
+    for element in split_input: 
+        """if "connected" in element: #this is another version of the code, that works on "in" and searches for keywords
             connections.append(element)
         else:
-            likes.append(element)
+            likes.append(element)"""
 
-        """if counter % 2 == 0:
+        if counter % 2 == 0: #if the counter is an even number, add it to the connections list
             connections.append(element)
-        else:
+        else: #if the counter is not an even number (odd), add it to the likes list
             likes.append(element)
-        counter += 1"""
-    print (connections)
-    print(likes)
-    #return network
+        counter += 1 #increment the counter by 1 for each value
+    network.append(connections) #append connections to the network list
+    network.append(likes) #append likes to the network list
+    #print (connections)
+    #print(likes)
+    print(network)
+    return network #return the network list so we can use it below
 
 # ----------------------------------------------------------------------------- # 
 # Note that the first argument to all procedures below is 'network' This is the #
