@@ -143,7 +143,7 @@ def get_connections(network, user):
     cleaned_list = []
     for element in imported_list:
         #print(element)
-        print (len(imported_list))
+        #print (len(imported_list))
         if "connected" in element:
             print(person, connections_string, cleaned_list)
             person, connections_string = element.split("is connected to")
