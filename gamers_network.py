@@ -138,31 +138,33 @@ def create_data_structure(string_input):  #this section is complete and returns 
 #   - If the user has no connections, return an empty list.
 #   - If the user is not in network, return None.
 def get_connections(network, user):
-    print(network)
+    #print(network)
     connections = []
     imported_list = [network[0]]
     person = ""
     connections_string = ""
     cleaned_list = []
-    print(imported_list[0])
+    #print(imported_list[0])
     for element in imported_list[0]:
         #print(person, connections_string, cleaned_list)
-        print(element)
+        #print(element)
         person, connections_string = element.split(" is connected to ")
+        print(person)
+        print(connections)
         connections = connections_string.split(",")
+        #print(connections)
         #print(person, connections_string, cleaned_list)
         for connection in connections:
             cleaned_list.append(connection.strip())
             #print(person, connections_string, cleaned_list)
     graph = [person.strip(), cleaned_list]
-    print(graph)
+    #print(graph)
 
             #print(element)
         #print(imported_list)
     #print(connections)
 
     #print(imported_list)
-    
     
     return [connections]
 
@@ -301,8 +303,8 @@ def find_path_to_friend(network, user_A, user_B):
 # to see how your code behaves. Have fun!
 
 net = create_data_structure(example_input)
-print (net)
-#print (get_connections(net, "Debra"))
+#print (net)
+print (get_connections(net, "Debra"))
 #print (get_connections(net, "Mercedes"))
 #print (get_games_liked(net, "John"))
 #print (add_connection(net, "John", "Freda"))
