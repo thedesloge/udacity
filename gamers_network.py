@@ -103,11 +103,14 @@ def create_data_structure(string_input):  #this section is complete and returns 
             connections.append(element)
         else:
             likes.append(element)"""
-
-        if counter % 2 == 0: #if the counter is an even number, add it to the connections list
-            connections.append(element)
-        else: #if the counter is not an even number (odd), add it to the likes list
-            likes.append(element)
+        if element == "":
+            split_input.remove(element)
+        else:
+            if counter % 2 == 0: #if the counter is an even number, add it to the connections list
+                connections.append(element)
+            else: #if the counter is not an even number (odd), add it to the likes list
+                likes.append(element)
+            
         counter += 1 #increment the counter by 1 for each value
     network.append(connections) #append connections to the network list
     network.append(likes) #append likes to the network list
@@ -136,6 +139,7 @@ def create_data_structure(string_input):  #this section is complete and returns 
 #   - If the user has no connections, return an empty list.
 #   - If the user is not in network, return None.
 def get_connections(network, user):
+    print(network)
     connections = []
     imported_list = [network[0]]
     person = ""
@@ -298,8 +302,8 @@ def find_path_to_friend(network, user_A, user_B):
 # to see how your code behaves. Have fun!
 
 net = create_data_structure(example_input)
-#print (net)
-print (get_connections(net, "Debra"))
+print (net)
+#print (get_connections(net, "Debra"))
 #print (get_connections(net, "Mercedes"))
 #print (get_games_liked(net, "John"))
 #print (add_connection(net, "John", "Freda"))
