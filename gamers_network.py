@@ -99,18 +99,17 @@ def create_data_structure(string_input):  #this section is complete and returns 
     network = []
     counter = 0
     for element in split_input: 
-        """if "connected" in element: #this is another version of the code, that works on "in" and searches for keywords
+        """if "connected" in element: #this is another version of the code and searches for keywords and separates based on those
             connections.append(element)
         else:
             likes.append(element)"""
         if element == "":
-            split_input.remove(element)
+            continue
         else:
             if counter % 2 == 0: #if the counter is an even number, add it to the connections list
                 connections.append(element)
             else: #if the counter is not an even number (odd), add it to the likes list
-                likes.append(element)
-            
+                likes.append(element)   
         counter += 1 #increment the counter by 1 for each value
     network.append(connections) #append connections to the network list
     network.append(likes) #append likes to the network list
