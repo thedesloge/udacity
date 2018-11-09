@@ -1,18 +1,16 @@
-from urllib.request import urlopen, Request
-url = "http://www.gutenberg.org/cache/epub/1661/pg1661.txt"
-request = Request(url)
-response = urlopen(request)
-html = response.read()
-response.close()
-words = html.split()
-print(len(words))
-
-"""def get_page(url):
-    try: 
-        import urllib
-        return urllib.urlopen(url).read()
-    except:
-        return ""
-    
-words = get_page('http://www.gutenberg.org/cache/epub/1661/pg1661.txt').split()
-print (len(words))"""
+connections = []
+imported_list = ["John is connected to Bryant, Debra, Walter."]
+person = ""
+connections_string = ""
+cleaned_list = []
+for element in imported_list:
+    #print(person, connections_string, cleaned_list)
+    print(element)
+    person, connections_string = element.split(" is connected to ")
+    connections = connections_string.split(",")
+    #print(person, connections_string, cleaned_list)
+    for connection in connections:
+        cleaned_list.append(connection.strip())
+        #print(person, connections_string, cleaned_list)
+graph = [person.strip(), cleaned_list]
+print(graph)
