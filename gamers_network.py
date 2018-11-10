@@ -148,15 +148,16 @@ def get_connections(network, user):
     for element in imported_list[0]:
         #print(person, connections_string, cleaned_list)
         #print(element)
-        person, connections_string = element.split(" is connected to ")
-        print(person)
-        print(connections)
-        connections = connections_string.split(",")
-        #print(connections)
-        #print(person, connections_string, cleaned_list)
-        for connection in connections:
-            cleaned_list.append(connection.strip())
+        if user == element[0]:
+            person, connections_string = element.split(" is connected to ")
+            #print(person)
+            #print(connections)
+            connections = connections_string.split(",")
+            #print(connections)
             #print(person, connections_string, cleaned_list)
+            for connection in connections:
+                cleaned_list.append(connection.strip())
+                #print(person, connections_string, cleaned_list)
     graph = [person.strip(), cleaned_list]
     #print(graph)
 
