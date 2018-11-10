@@ -117,11 +117,6 @@ def create_data_structure(string_input):  #this section is complete and returns 
     #print(likes)
     #print(network) #this will print the network
     return network #return the network list so we can use it below
-
-def create_users_list(network):
-    connections_list = network[0]
-    split_string = connections_list.split()
-    
 # ----------------------------------------------------------------------------- # 
 # Note that the first argument to all procedures below is 'network' This is the #
 # data structure that you created with your create_data_structure procedure,    #
@@ -141,7 +136,7 @@ def create_users_list(network):
 #   A list of all connections the user has.
 #   - If the user has no connections, return an empty list.
 #   - If the user is not in network, return None.
-def get_connections(network, user): #this section now works as far as I can tell.
+def get_connections(network, user):
     #print(network)
     connections = []
     imported_list = [network[0]]
@@ -149,23 +144,23 @@ def get_connections(network, user): #this section now works as far as I can tell
     connections_string = ""
     cleaned_list = []
     #print(imported_list[0])
-    for element in imported_list[0]:
-        #print(person, connections_string, cleaned_list)
-        #print(element[0]) #element[0] is the first letter of the person's name, not the entire name.  Need to fix that.
-        if user[0] == element[0]:
-            split_string = element.split()
-            if split_string[0] == user:
-                person, connections_string = element.split(" is connected to ")
-                #print(person)
-                #print(links)
-                links = connections_string.split(",")
-                #print(links)
+    for element in imported_list:
+        print(element[0])
+        print(element[1])
+        print(element[2])
+        person, connections_string = element.split(" is connected to ")
+        if person == user:
+            links = connections_string.split(",")
+            #print(links)
+            #print(person, connections_string, cleaned_list)
+            for connection in links:
+                cleaned_list.append(connection.strip())
                 #print(person, connections_string, cleaned_list)
-                for connection in links:
-                    cleaned_list.append(connection.strip())
-                    #print(person, connections_string, cleaned_list)
-        else:
-            return None
+        #else:
+            #return None
+    """for element in imported_list[0]:
+        string_split = element.split()"""
+
     connections = [person.strip(), cleaned_list]
     #print(connections)
 
@@ -315,6 +310,7 @@ net = create_data_structure(example_input)
 #print (net)
 print (get_connections(net, "Debra"))
 print (get_connections(net, "Mercedes"))
+print (get_connections(net, "Olive"))
 #print (get_games_liked(net, "John"))
 #print (add_connection(net, "John", "Freda"))
 #print (add_new_user(net, "Debra", [])) 
