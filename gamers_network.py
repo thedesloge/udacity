@@ -69,7 +69,9 @@ Jennie likes to play Super Mushroom Man, Dinosaur Diner, Call of Arms.\
 Robin is connected to Ollie.\
 Robin likes to play Call of Arms, Dwarves and Swords.\
 Freda is connected to Olive, John, Debra.\
-Freda likes to play Starfleet Commander, Ninja Hamsters, Seahorse Adventures."
+Freda likes to play Starfleet Commander, Ninja Hamsters, Seahorse Adventures.\
+Bill is connected to .\
+Bill likes to play Diablo 2."
 
 # ----------------------------------------------------------------------------- 
 # create_data_structure(string_input): 
@@ -136,41 +138,24 @@ def create_data_structure(string_input):  #this section is complete and returns 
 #   A list of all connections the user has.
 #   - If the user has no connections, return an empty list.
 #   - If the user is not in network, return None.
-def get_connections(network, user):
-    #print(network)
+def get_connections(network, user): #This code works as intended.  It returns the connecttions of the user as [user[connection, connection]]
     connections = []
-    imported_list = [network[0]]
+    imported_list = network[0]
     person = ""
     connections_string = ""
     cleaned_list = []
-    #print(imported_list[0])
-    for element in imported_list:
-        print(element[0])
-        print(element[1])
-        print(element[2])
-        person, connections_string = element.split(" is connected to ")
-        if person == user:
-            links = connections_string.split(",")
-            #print(links)
-            #print(person, connections_string, cleaned_list)
-            for connection in links:
-                cleaned_list.append(connection.strip())
-                #print(person, connections_string, cleaned_list)
-        #else:
-            #return None
-    """for element in imported_list[0]:
-        string_split = element.split()"""
-
-    connections = [person.strip(), cleaned_list]
-    #print(connections)
-
-            #print(element)
-        #print(imported_list)
-    #print(connections)
-
-    #print(imported_list)
-    
-    return connections
+    for element in imported_list: #looping through each string in imported_list
+        person, connections_string = element.split(" is connected to ") #splitting the strings into names and the connection values
+        #user_list.append(person)
+        #print(user_list)
+        if person == user: #checking if the name of the person matches the passed in name
+            links = connections_string.split(",") #splitting the connections string on the comma to get individual strings
+            for connection in links: 
+                cleaned_list.append(connection.strip()) #appending the connections to the new list
+            connections = [person.strip(), cleaned_list] #stripping of while space to make a clean list
+    if cleaned_list == []: #if the user isn't part of the network, return None
+        return None
+    return connections #return the connections for the user input
 
 # ----------------------------------------------------------------------------- 
 # get_games_liked(network, user): 
@@ -311,6 +296,8 @@ net = create_data_structure(example_input)
 print (get_connections(net, "Debra"))
 print (get_connections(net, "Mercedes"))
 print (get_connections(net, "Olive"))
+print (get_connections(net, "Sam"))
+print (get_connections(net, "Bill"))
 #print (get_games_liked(net, "John"))
 #print (add_connection(net, "John", "Freda"))
 #print (add_new_user(net, "Debra", [])) 
