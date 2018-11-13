@@ -208,7 +208,7 @@ def add_connection(network, user_A, user_B):
         person, connections_string = element.split(" is connected to ") #splitting the strings into names and the connection values
         if person == user_A: #checking if the name of the person matches the passed in name
             links = connections_string.split(",") #splitting the connections string on the comma to get individual strings
-            for connection in links: 
+            for connection in links:
                 cleaned_list.append(connection.strip()) #appending the connections to the new list
                 if user_B in cleaned_list:
                     return network
@@ -217,8 +217,7 @@ def add_connection(network, user_A, user_B):
             connections = [person.strip(), cleaned_list] #stripping of while space to make a clean list
     if cleaned_list == []: #if the user isn't part of the network, return None
         return None
-    return connections #return the connections for the user input
-	return network
+	#return network
 
 # ----------------------------------------------------------------------------- 
 # add_new_user(network, user, games): 
@@ -327,10 +326,10 @@ net = create_data_structure(example_input)
 #print (get_connections(net, "Debra"))
 #print (get_connections(net, "Mercedes"))
 #print (get_connections(net, "Olive"))
-print (get_games_liked(net, "Sam"))
-print (get_games_liked(net, "Bill"))
-print (get_games_liked(net, "John"))
-#print (add_connection(net, "John", "Freda"))
+#print (get_games_liked(net, "Sam"))
+#print (get_games_liked(net, "Bill"))
+#print (get_games_liked(net, "John"))
+print (add_connection(net, "John", "Freda"))
 #print (add_new_user(net, "Debra", [])) 
 #print (add_new_user(net, "Nick", ["Seven Schemers", "The Movie: The Game"])) # True
 #print (get_secondary_connections(net, "Mercedes"))
