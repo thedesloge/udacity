@@ -170,7 +170,21 @@ def get_connections(network, user): #This code works as intended.  It returns th
 #   - If the user likes no games, return an empty list.
 #   - If the user is not in network, return None.
 def get_games_liked(network,user):
-    return []
+    likes = []
+    imported_list = network[1]
+    person = ""
+    likes_string = ""
+    cleaned_list = []
+    for element in imported_list: #looping through each string in imported_list
+        person, likes_string = element.split(" likes ") #splitting the strings into names and the likes values
+        if person == user: #checking if the name of the person matches the passed in name
+            links = likes_string.split(",") #splitting the likes string on the comma to get individual strings
+            for like in links: 
+                cleaned_list.append(like.strip()) #appending the like to the new list
+            likes = [person.strip(), cleaned_list] #stripping of while space to make a clean list
+    if cleaned_list == []: #if the user isn't part of the network, return None
+        return None
+    return likes #return the likes for the user input
 
 # ----------------------------------------------------------------------------- 
 # add_connection(network, user_A, user_B): 
