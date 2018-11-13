@@ -146,8 +146,6 @@ def get_connections(network, user): #This code works as intended.  It returns th
     cleaned_list = []
     for element in imported_list: #looping through each string in imported_list
         person, connections_string = element.split(" is connected to ") #splitting the strings into names and the connection values
-        #user_list.append(person)
-        #print(user_list)
         if person == user: #checking if the name of the person matches the passed in name
             links = connections_string.split(",") #splitting the connections string on the comma to get individual strings
             for connection in links: 
@@ -201,6 +199,25 @@ def get_games_liked(network,user): #This section is complete and returns the lis
 #   - If a connection already exists from user_A to user_B, return network unchanged.
 #   - If user_A or user_B is not in network, return False.
 def add_connection(network, user_A, user_B):
+    connections = []
+    imported_list = network[0]
+    person = ""
+    connections_string = ""
+    cleaned_list = []
+    for element in imported_list: #looping through each string in imported_list
+        person, connections_string = element.split(" is connected to ") #splitting the strings into names and the connection values
+        if person == user_A: #checking if the name of the person matches the passed in name
+            links = connections_string.split(",") #splitting the connections string on the comma to get individual strings
+            for connection in links: 
+                cleaned_list.append(connection.strip()) #appending the connections to the new list
+                if user_B in cleaned_list:
+                    return network
+                else:
+                    cleaned_list.append(user_B)
+            connections = [person.strip(), cleaned_list] #stripping of while space to make a clean list
+    if cleaned_list == []: #if the user isn't part of the network, return None
+        return None
+    return connections #return the connections for the user input
 	return network
 
 # ----------------------------------------------------------------------------- 
