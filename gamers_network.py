@@ -70,8 +70,8 @@ Robin is connected to Ollie.\
 Robin likes to play Call of Arms, Dwarves and Swords.\
 Freda is connected to Olive, John, Debra.\
 Freda likes to play Starfleet Commander, Ninja Hamsters, Seahorse Adventures.\
-Bill is connected to .\
-Bill likes to play Diablo 2."
+Bill is connected to Sam.\
+Bill likes to play ."
 
 # ----------------------------------------------------------------------------- 
 # create_data_structure(string_input): 
@@ -138,7 +138,7 @@ def create_data_structure(string_input):  #this section is complete and returns 
 #   A list of all connections the user has.
 #   - If the user has no connections, return an empty list.
 #   - If the user is not in network, return None.
-def get_connections(network, user): #This code works as intended.  It returns the connecttions of the user as [user[connection, connection]]
+def get_connections(network, user): #This code works as intended.  It returns the connecttions of the user as ['user'['connection', 'connection']]
     connections = []
     imported_list = network[0]
     person = ""
@@ -169,14 +169,14 @@ def get_connections(network, user): #This code works as intended.  It returns th
 #   A list of all games the user likes.
 #   - If the user likes no games, return an empty list.
 #   - If the user is not in network, return None.
-def get_games_liked(network,user):
+def get_games_liked(network,user): #This section is complete and returns the list "likes" as ['person', ['like', 'like']]
     likes = []
     imported_list = network[1]
     person = ""
     likes_string = ""
     cleaned_list = []
     for element in imported_list: #looping through each string in imported_list
-        person, likes_string = element.split(" likes ") #splitting the strings into names and the likes values
+        person, likes_string = element.split(" likes to play ") #splitting the strings into names and the likes values
         if person == user: #checking if the name of the person matches the passed in name
             links = likes_string.split(",") #splitting the likes string on the comma to get individual strings
             for like in links: 
@@ -307,12 +307,12 @@ def find_path_to_friend(network, user_A, user_B):
 
 net = create_data_structure(example_input)
 #print (net)
-print (get_connections(net, "Debra"))
-print (get_connections(net, "Mercedes"))
-print (get_connections(net, "Olive"))
-print (get_connections(net, "Sam"))
-print (get_connections(net, "Bill"))
-#print (get_games_liked(net, "John"))
+#print (get_connections(net, "Debra"))
+#print (get_connections(net, "Mercedes"))
+#print (get_connections(net, "Olive"))
+print (get_games_liked(net, "Sam"))
+print (get_games_liked(net, "Bill"))
+print (get_games_liked(net, "John"))
 #print (add_connection(net, "John", "Freda"))
 #print (add_new_user(net, "Debra", [])) 
 #print (add_new_user(net, "Nick", ["Seven Schemers", "The Movie: The Game"])) # True
