@@ -213,11 +213,12 @@ def add_connection(network, user_A, user_B):
                 if user_B in cleaned_list:
                     return network
                 else:
-                    cleaned_list.append(user_B)
+                    connections_string = user_A + " is connected to " + connections_string + user_B
+                    element.replace(element, connections_string) #this is me trying to figure out how to use replace to swap the old string for my new one from above
             connections = [person.strip(), cleaned_list] #stripping of while space to make a clean list
     if cleaned_list == []: #if the user isn't part of the network, return None
         return None
-	#return network
+    return network
 
 # ----------------------------------------------------------------------------- 
 # add_new_user(network, user, games): 
