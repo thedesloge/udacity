@@ -210,7 +210,8 @@ def add_connection(network, user_A, user_B):
             links = connections_string.split(",") #splitting the connections string on the comma to get individual strings
             for connection in links:
                 cleaned_list.append(connection.strip()) #appending the connections to the new list
-                if user_B in cleaned_list:                    return network
+                if user_B in cleaned_list:                    
+                    return network
                 else:
                     connections_string = user_A + " is connected to " + connections_string + user_B
                     element.replace(element, connections_string) #this is me trying to figure out how to use replace to swap the old string for my new one from above
