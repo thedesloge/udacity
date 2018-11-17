@@ -51,27 +51,27 @@
 example_input="John is connected to Bryant, Debra, Walter.\
 John likes to play The Movie: The Game, The Legend of Corgi, Dinosaur Diner.\
 Bryant is connected to Olive, Ollie, Freda, Mercedes.\
-Bryant likes to play City Comptroller: The Fiscal Dilemma, Super Mushroom Man.\
-Mercedes is connected to Walter, Robin, Bryant.\
-Mercedes likes to play The Legend of Corgi, Pirates in Java Island, Seahorse Adventures.\
-Olive is connected to John, Ollie.\
-Olive likes to play The Legend of Corgi, Starfleet Commander.\
-Debra is connected to Walter, Levi, Jennie, Robin.\
-Debra likes to play Seven Schemers, Pirates in Java Island, Dwarves and Swords.\
-Walter is connected to John, Levi, Bryant.\
-Walter likes to play Seahorse Adventures, Ninja Hamsters, Super Mushroom Man.\
-Levi is connected to Ollie, John, Walter.\
-Levi likes to play The Legend of Corgi, Seven Schemers, City Comptroller: The Fiscal Dilemma.\
-Ollie is connected to Mercedes, Freda, Bryant.\
-Ollie likes to play Call of Arms, Dwarves and Swords, The Movie: The Game.\
-Jennie is connected to Levi, John, Freda, Robin.\
-Jennie likes to play Super Mushroom Man, Dinosaur Diner, Call of Arms.\
-Robin is connected to Ollie.\
-Robin likes to play Call of Arms, Dwarves and Swords.\
-Freda is connected to Olive, John, Debra.\
-Freda likes to play Starfleet Commander, Ninja Hamsters, Seahorse Adventures.\
-Bill is connected to Sam.\
-Bill likes to play ."
+Bryant likes to play City Comptroller: The Fiscal Dilemma, Super Mushroom Man."
+# Mercedes is connected to Walter, Robin, Bryant.\
+# Mercedes likes to play The Legend of Corgi, Pirates in Java Island, Seahorse Adventures.\
+# Olive is connected to John, Ollie.\
+# Olive likes to play The Legend of Corgi, Starfleet Commander.\
+# Debra is connected to Walter, Levi, Jennie, Robin.\
+# Debra likes to play Seven Schemers, Pirates in Java Island, Dwarves and Swords.\
+# Walter is connected to John, Levi, Bryant.\
+# Walter likes to play Seahorse Adventures, Ninja Hamsters, Super Mushroom Man.\
+# Levi is connected to Ollie, John, Walter.\
+# Levi likes to play The Legend of Corgi, Seven Schemers, City Comptroller: The Fiscal Dilemma.\
+# Ollie is connected to Mercedes, Freda, Bryant.\
+# Ollie likes to play Call of Arms, Dwarves and Swords, The Movie: The Game.\
+# Jennie is connected to Levi, John, Freda, Robin.\
+# Jennie likes to play Super Mushroom Man, Dinosaur Diner, Call of Arms.\
+# Robin is connected to Ollie.\
+# Robin likes to play Call of Arms, Dwarves and Swords.\
+# Freda is connected to Olive, John, Debra.\
+# Freda likes to play Starfleet Commander, Ninja Hamsters, Seahorse Adventures.\
+# Bill is connected to Sam.\
+# Bill likes to play ."
 
 # ----------------------------------------------------------------------------- 
 # create_data_structure(string_input): 
@@ -118,6 +118,40 @@ def create_data_structure(string_input):  #this section is complete and returns 
     #print (connections)
     #print(likes)
     #print(network) #this will print the network
+    return network #return the network list so we can use it below
+
+connections = {
+    "John": ["Debra", "Donald", "Bob"],
+    "Bob": ["Wendy", "John", "Tom"]
+}
+
+likes = {
+    "John": ["Pizza"],
+    "Bob": ["Tomatoes"]
+}
+network = [connections, likes]
+
+
+def create_data_structure_map(string_input):  #this section is complete and returns the list of lists "network[[connections],[likes]]""
+    split_input = string_input.split(".")  #splits "string_input" list into two lists, connections and likes, then appends them together
+    connections = {}                       #into the bigger list "network"
+    likes = {}
+    network = []
+    for element in split_input:
+        if element == "":
+            continue
+
+        if "connected" in element: #this is another version of the code and searches for keywords and separates based on those
+            target, source = element.split(" is connected to ")
+            source_list = source.split(",")
+            connections[target] = source_list
+        else:
+            target, source = element.split(" likes to play ")
+            source_list = source.split(",")
+            likes[target] = source_list
+
+    network.append(connections)
+    network.append(likes)
     return network #return the network list so we can use it below
 # ----------------------------------------------------------------------------- # 
 # Note that the first argument to all procedures below is 'network' This is the #
@@ -203,11 +237,14 @@ def add_connection(network, user_A, user_B):
     imported_list = network[0]
     person = ""
     connections_string = ""
-    cleaned_list = []
-    for element in imported_list: #looping through each string in imported_list
+    user_A_found = False
+    user_B_found = False
+    for idx, element in enumerate(imported_list): #looping through each string in imported_list
         person, connections_string = element.split(" is connected to ") #splitting the strings into names and the connection values
         if person == user_A: #checking if the name of the person matches the passed in name
+            user_A_found = True
             links = connections_string.split(",") #splitting the connections string on the comma to get individual strings
+<<<<<<< HEAD
             for connection in links:
                 cleaned_list.append(connection.strip()) #appending the connections to the new list
                 if user_B in cleaned_list:                    
@@ -218,7 +255,31 @@ def add_connection(network, user_A, user_B):
             connections = [person.strip(), cleaned_list] #stripping of while space to make a clean list
     if cleaned_list == []: #if the user isn't part of the network, return None
         return None
+=======
+            if user_B in links:
+                return network
+            else:
+                new_connection_string = user_A + " is connected to " + connections_string + ", " + user_B
+                imported_list[idx] = new_connection_string
+                user_B_found = True
+
+    if not user_A_found or not user_B_found:
+        return False
+>>>>>>> 0a957d1fda0b49daa65ad20f966c41d1ed85739b
     return network
+
+def add_connection_map(network, user_A, user_B):
+    connections = network[0]
+
+    if user_A in connections:
+        user_connections = connections[user_A]
+        if user_B not in user_connections:
+            user_connections.append(user_B)
+            return network
+    else: 
+        return False
+
+
 
 # ----------------------------------------------------------------------------- 
 # add_new_user(network, user, games): 
@@ -322,17 +383,37 @@ def find_path_to_friend(network, user_A, user_B):
 # Replace this with your own procedure! You can also uncomment the lines below
 # to see how your code behaves. Have fun!
 
-net = create_data_structure(example_input)
-#print (net)
+def pretty_print_network(network):
+    connections = network[0]
+    likes = network[1]
+
+    connections_output = []
+    likes_output = []
+    for key in connections:
+        str = ", ".join(connections[key])
+        connections_output.append("" + key + " is connected to " + str)
+
+    for key in likes:
+        str = ", ".join(likes[key])
+        likes_output.append("" + key + " likes to play " + str)
+
+    print([connections_output, likes_output])
+
+net = create_data_structure_map(example_input)
+# print (net)
 #print (get_connections(net, "Debra"))
 #print (get_connections(net, "Mercedes"))
 #print (get_connections(net, "Olive"))
 #print (get_games_liked(net, "Sam"))
 #print (get_games_liked(net, "Bill"))
 #print (get_games_liked(net, "John"))
-print (add_connection(net, "John", "Freda"))
-#print (add_new_user(net, "Debra", [])) 
+connection = add_connection_map(net, "John", "Donald")
+print(connection)
+pretty_print_network(net)
+
+#print (add_new_user(net, "Debra", []))
 #print (add_new_user(net, "Nick", ["Seven Schemers", "The Movie: The Game"])) # True
 #print (get_secondary_connections(net, "Mercedes"))
 #print (count_common_connections(net, "Mercedes", "John"))
 #print (find_path_to_friend(net, "John", "Ollie"))
+
