@@ -99,20 +99,15 @@ def create_data_structure(string_input):  #this section is complete and returns 
     connections = []                       #into the bigger list "network"
     likes = []
     network = []
-    counter = 0
     for element in split_input: 
-        """if "connected" in element: #this is another version of the code and searches for keywords and separates based on those
-            connections.append(element)
-        else:
-            likes.append(element)"""
+
         if element == "":
             continue
         else:
-            if counter % 2 == 0: #if the counter is an even number, add it to the connections list
+            if "connected" in element:  # checking if connected in the string and appending it to the connections list
                 connections.append(element)
-            else: #if the counter is not an even number (odd), add it to the likes list
-                likes.append(element)   
-        counter += 1 #increment the counter by 1 for each value
+            else: #otherwise we are adding it to the likes list
+                likes.append(element)
     network.append(connections) #append connections to the network list
     network.append(likes) #append likes to the network list
     #print (connections)
@@ -120,7 +115,7 @@ def create_data_structure(string_input):  #this section is complete and returns 
     #print(network) #this will print the network
     return network #return the network list so we can use it below
 
-connections = {
+"""connections = {
     "John": ["Debra", "Donald", "Bob"],
     "Bob": ["Wendy", "John", "Tom"]
 }
@@ -152,7 +147,7 @@ def create_data_structure_map(string_input):  #this is Donald's modded section, 
 
     network.append(connections)
     network.append(likes)
-    return network #return the network list so we can use it below
+    return network #return the network list so we can use it below"""
 # ----------------------------------------------------------------------------- # 
 # Note that the first argument to all procedures below is 'network' This is the #
 # data structure that you created with your create_data_structure procedure,    #
@@ -172,6 +167,16 @@ def create_data_structure_map(string_input):  #this is Donald's modded section, 
 #   A list of all connections the user has.
 #   - If the user has no connections, return an empty list.
 #   - If the user is not in network, return None.
+def get_user_list(network): #this is a function that loops through the network and pulls off each person that is in the network and puts them into this list.
+    user_list = []          #This can be used later to compare if a user is "in network" by comparing if the user is in user_list
+    imported_list = network[0]
+    while len(user_list) < len(network[0]):
+        for element in imported_list: #looping through each string in imported_list
+            person, connections_string = element.split(" is connected to ")
+            user_list.append(person)
+    return user_list
+
+
 def get_connections(network, user): #This code works as intended.  It returns the connections of the user as ['user'['connection', 'connection']]
     connections = []
     imported_list = network[0]
@@ -233,40 +238,46 @@ def get_games_liked(network,user): #This section is complete and returns the lis
 #   - If a connection already exists from user_A to user_B, return network unchanged.
 #   - If user_A or user_B is not in network, return False.
 def add_connection(network, user_A, user_B):
-    connections = []
-    imported_list = network[0]
-    person = ""
-    connections_string = ""
-    user_A_found = False
-    user_B_found = False
-    for idx, element in enumerate(imported_list): #looping through each string in imported_list and keeping count as we go
-        print(element)
-        person, connections_string = element.split(" is connected to ") #splitting the strings into names and the connection values
-        if person == user_A: #checking if the name of the person matches the passed in name
-            user_A_found = True
-            links = connections_string.split(",") #splitting the connections string on the comma to get individual strings
-            for connections in links:
-                cleaned_list.append(connections.strip()) #appending the connections to the new list
-                if user_B in cleaned_list:                    
-                    return network
-                else:
-                    connections_string = user_A + " is connected to " + connections_string + user_B
-                    element.replace(element, connections_string) #this is me trying to figure out how to use replace to swap the old string for my new one from above
-            connections = [person.strip(), cleaned_list] #stripping of while space to make a clean list
-    if cleaned_list == []: #if the user isn't part of the network, return None
-        return None
-    if user_B in links:
+    connections = get_connections(network, user_A)
+    user_list = get_user_list(network)
+    #connections = self.get_connections()
+    imported_list = connections
+    #person = ""
+    connections_string = imported_list[1]
+    cleaned_list = []
+    #user_A_found = False
+    #user_B_found = False
+    if user_A not in user_list:
         return network
     else:
-        new_connection_string = user_A + " is connected to " + connections_string + ", " + user_B
-        imported_list[idx] = new_connection_string
-        user_B_found = True
+        if user_B not in user_list:
+            return network
+    #for idx, element in enumerate(imported_list): #looping through each string in imported_list and keeping count as we go
+        #print(element)
+        #person, connections_string = element.split(" is connected to ") #splitting the strings into names and the connection values
+    for element in imported_list:
+        if element == user_A: #checking if the name of the person matches the passed in name
+            user_A_found = True
+            if user_B in connections_string:
+                return network
+            else:
+                connections_string = imported_list[1].append(user_B)
+                element.replace(connections, network[0]) #this is me trying to figure out how to use replace to swap the old string for my new one from above
+            #connections = [element.strip(), cleaned_list] #stripping of while space to make a clean list
+    if cleaned_list == []: #if the user isn't part of the network, return None
+        return None
+    #if user_B in links:
+    #    return network
+    #else:
+    #    new_connection_string = user_A + " is connected to " + connections_string + ", " + user_B
+    #    #imported_list[idx] = new_connection_string
+    #    user_B_found = True
 
     if not user_A_found or not user_B_found:
         return False
     return network
 
-def add_connection_map(network, user_A, user_B):
+"""def add_connection_map(network, user_A, user_B):
     connections = network[0]
 
     if user_A in connections:
@@ -275,7 +286,7 @@ def add_connection_map(network, user_A, user_B):
             user_connections.append(user_B)
             return network
     else: 
-        return False
+        return False"""
 
 
 
@@ -297,7 +308,16 @@ def add_connection_map(network, user_A, user_B):
 #   - If the user already exists in network, return network *UNCHANGED* (do not change
 #     the user's game preferences)
 def add_new_user(network, user, games):
-    return network
+    user_list = get_user_list(network)
+    games_liked = network[1]
+    connections = network[0]
+    imported_list = network[0]
+    if user in user_list:
+        return network
+    else:
+
+        print("they're not in the network") #this is the part I'm on right now.  Trying to figure out how to add the new user, I have the base case finished.
+        return network
 		
 # ----------------------------------------------------------------------------- 
 # get_secondary_connections(network, user): 
@@ -381,7 +401,7 @@ def find_path_to_friend(network, user_A, user_B):
 # Replace this with your own procedure! You can also uncomment the lines below
 # to see how your code behaves. Have fun!
 
-def pretty_print_network(network):
+"""def pretty_print_network(network):
     connections = network[0]
     likes = network[1]
 
@@ -395,24 +415,24 @@ def pretty_print_network(network):
         str = ", ".join(likes[key])
         likes_output.append("" + key + " likes to play " + str)
 
-    print([connections_output, likes_output])
+    print([connections_output, likes_output])"""
 
-net = create_data_structure_map(example_input)
-# print (net)
-#print (get_connections(net, "Debra"))
-#print (get_connections(net, "Mercedes"))
-#print (get_connections(net, "Olive"))
-#print (get_games_liked(net, "Sam"))
-#print (get_games_liked(net, "Bill"))
-#print (get_games_liked(net, "John"))
+net = (create_data_structure(example_input))
+# print (net)                                               done
+#print (get_connections(net, "John"))                       done
+#print (get_connections(net, "Mercedes"))                   done
+#print (get_connections(net, "Olive"))                      done
+#print (get_games_liked(net, "Sam"))                        done
+#print (get_games_liked(net, "Bill"))                       done
+#print (get_games_liked(net, "John"))                       done
 #connection = add_connection_map(net, "John", "Donald")
 #print(connection)
 #pretty_print_network(net)
-#print(add_connection(net, "John", "Bill"))
-print(add_connection(net, "John", "Debra"))
-
-#print (add_new_user(net, "Debra", []))
-#print (add_new_user(net, "Nick", ["Seven Schemers", "The Movie: The Game"])) # True
+#print(add_connection(net, "John", "Freda"))                 #working on this
+#print(add_connection(net, "John", "Debra"))
+#print(get_user_list(net))#done
+print (add_new_user(net, "Debra", []))
+print (add_new_user(net, "Nick", ["Seven Schemers", "The Movie: The Game"])) # True
 #print (get_secondary_connections(net, "Mercedes"))
 #print (count_common_connections(net, "Mercedes", "John"))
 #print (find_path_to_friend(net, "John", "Ollie"))
