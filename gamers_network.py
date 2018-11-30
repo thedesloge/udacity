@@ -307,7 +307,7 @@ def add_connection(network, user_A, user_B):
 #   should have no connections.
 #   - If the user already exists in network, return network *UNCHANGED* (do not change
 #     the user's game preferences)
-def add_new_user(network, user, games): ##I think this section is complete.  It seems to work correctly for all the cases provided.
+def add_new_user(network, user, games): ##I think this section is complete.  It seems to work correctly for all the cases provided and updates the network with the new user
     user_list = get_user_list(network) #creating a list of users in the network to check if the user is already part of the network
     games_liked = network[1] #getting the original games_liked list
     connections = network[0] #getting the original connections list
