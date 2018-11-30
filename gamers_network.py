@@ -238,36 +238,27 @@ def get_games_liked(network,user): #This section is complete and returns the lis
 #   - If a connection already exists from user_A to user_B, return network unchanged.
 #   - If user_A or user_B is not in network, return False.
 def add_connection(network, user_A, user_B): #I think this works as intended.  Checks the user_list and then adds the new connection if they are in the list and aren't already connected
-    #connections = get_connections(network, user_A)
-    user_list = get_user_list(network)
-    #connections = self.get_connections()
-    imported_list = network[0]
+    user_list = get_user_list(network) #making the user list to be able to check if user_A and user_B are part of the network later
+    imported_list = network[0] #bringing in the connections part of the network
     person = ""
     connections_string = imported_list[1]
     cleaned_list = []
-    if user_A not in user_list:
+    if user_A not in user_list: #this if/else statement returns False if either user_A or user_B aren't in the network
         return False
     else:
         if user_B not in user_list:
             return False
     for idx, element in enumerate(imported_list): #looping through each string in imported_list and keeping count as we go
-        #print(element)
         person, connections_string = element.split(" is connected to ") #splitting the strings into names and the connection values
         for element in imported_list:
             if person == user_A: #checking if the name of the person matches the passed in name
-                if user_B in connections_string:
+                if user_B in connections_string: #if they already have a connection, return the network unchanged
                     return network
-                else:
-                    connections_string = imported_list[idx] + ", " + user_B
-                    imported_list[idx] = connections_string #this is me trying to figure out how to use replace to swap the old string for my new one from above
-                #connections = [element.strip(), cleaned_list] #stripping of while space to make a clean list"""
-    if cleaned_list == []: #if the user isn't part of the network, return None
+                else: #if they aren't connected
+                    connections_string = imported_list[idx] + ", " + user_B #creating a string and adding the new user on to the end
+                    imported_list[idx] = connections_string #replacing the string at the specific location with our new string that has the new connection
+    if cleaned_list == []: #if the user isn't part of the network, return None #I don't think we ever hit this case, but I'm leaving it in just in case
         return None
-    #if user_B in links:
-    #    return network
-    #else:
-    #    new_connection_string = user_A + " is connected to " + connections_string + ", " + user_B
-    #    #imported_list[idx] = new_connection_string
     return network
 
 """def add_connection_map(network, user_A, user_B):
@@ -337,8 +328,21 @@ def add_new_user(network, user, games): ##I think this section is complete.  It 
 #   It is OK if a user's list of secondary connections includes the user 
 #   himself/herself. It is also OK if the list contains a user's primary 
 #   connection that is a secondary connection as well.
-def get_secondary_connections(network, user):
-	return []
+def get_secondary_connections(network, user): #this section is complete and follows the specifications from the class
+    user_list = get_user_list(network) #bringing in the user_list again, to check if the passed in user is part of the network
+    primary_connections_list = get_connections(network, user) #bringing in the connections of the passed in user
+    secondary_connections_list = [] #initialize the final list as an empty list to being
+    if user not in user_list: #if the passed in user is not part of the network, return None
+        return None
+    else: #if the passed in user is part of the network, continue below
+        for element in primary_connections_list[1]: #this takes the connections of the user
+            secondary_connections = get_connections(network, element) #this gets the connections of the connections to the user
+            for connection in secondary_connections[1]: # looping through the second level connections
+                if connection not in secondary_connections_list: #if the second level connection isn't in our final list, add it below
+                    secondary_connections_list.append(connection)
+                else: #if the second level connection is a part of the final list, do nothing
+                    continue
+    return secondary_connections_list
 
 # ----------------------------------------------------------------------------- 	
 # count_common_connections(network, user_A, user_B): 
@@ -418,19 +422,19 @@ def find_path_to_friend(network, user_A, user_B):
     print([connections_output, likes_output])"""
 
 net = (create_data_structure(example_input))
-# print (net)                                                                           done
-#print (get_connections(net, "John"))                                                   done
-#print (get_connections(net, "Mercedes"))                                               done
-#print (get_connections(net, "Olive"))                                                  done
-#print (get_games_liked(net, "Sam"))                                                    done
-#print (get_games_liked(net, "Bill"))                                                   done
-#print (get_games_liked(net, "John"))                                                   done
-#print(add_connection(net, "John", "Freda"))                                            done
-#print(add_connection(net, "John", "Debra"))                                            done
-#print(get_user_list(net))                                                              done
-#print (add_new_user(net, "Debra", []))                                                 done
-#print (add_new_user(net, "Nick", ["Seven Schemers", "The Movie: The Game"])) # True    done
-#print (get_secondary_connections(net, "Mercedes"))
-#print (count_common_connections(net, "Mercedes", "John"))
-#print (find_path_to_friend(net, "John", "Ollie"))
+# print (net)                                                                           #done
+#print (get_connections(net, "John"))                                                   #done
+#print (get_connections(net, "Mercedes"))                                               #done
+#print (get_connections(net, "Olive"))                                                  #done
+#print (get_games_liked(net, "Sam"))                                                    #done
+#print (get_games_liked(net, "Bill"))                                                   #done
+#print (get_games_liked(net, "John"))                                                   #done
+#print(add_connection(net, "John", "Freda"))                                            #done
+#print(add_connection(net, "John", "Debra"))                                            #done
+#print(get_user_list(net))                                                              #done
+#print (add_new_user(net, "Debra", []))                                                 #done
+#print (add_new_user(net, "Nick", ["Seven Schemers", "The Movie: The Game"])) # True    #done
+#print (get_secondary_connections(net, "Mercedes"))                                     #done
+#print (count_common_connections(net, "Mercedes", "John"))                              #next up
+#print (find_path_to_friend(net, "John", "Ollie"))                                      #next up
 
