@@ -307,17 +307,22 @@ def add_connection(network, user_A, user_B):
 #   should have no connections.
 #   - If the user already exists in network, return network *UNCHANGED* (do not change
 #     the user's game preferences)
-def add_new_user(network, user, games):
+def add_new_user(network, user, games): ##I think this section is complete.  It seems to work correctly for all the cases provided.
     user_list = get_user_list(network)
     games_liked = network[1]
     connections = network[0]
-    imported_list = network[0]
     if user in user_list:
         return network
     else:
-
-        print("they're not in the network") #this is the part I'm on right now.  Trying to figure out how to add the new user, I have the base case finished.
-        return network
+        new_connections_string = user + " is connected to "
+        games_string = ', '.join(games)
+        new_games_liked = user + " likes to play " + games_string
+        connections.append(new_connections_string)
+        games_liked.append(new_games_liked)
+        #print (connections, games_liked)
+        return connections, games_liked
+        #print("they're not in the network") #this is the part I'm on right now.  Trying to figure out how to add the new user, I have the base case finished.
+        #return network
 		
 # ----------------------------------------------------------------------------- 
 # get_secondary_connections(network, user): 
