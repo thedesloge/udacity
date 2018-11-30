@@ -237,33 +237,30 @@ def get_games_liked(network,user): #This section is complete and returns the lis
 #   The updated network with the new connection added.
 #   - If a connection already exists from user_A to user_B, return network unchanged.
 #   - If user_A or user_B is not in network, return False.
-def add_connection(network, user_A, user_B):
-    connections = get_connections(network, user_A)
+def add_connection(network, user_A, user_B): #I think this works as intended.  Checks the user_list and then adds the new connection if they are in the list and aren't already connected
+    #connections = get_connections(network, user_A)
     user_list = get_user_list(network)
     #connections = self.get_connections()
-    imported_list = connections
-    #person = ""
+    imported_list = network[0]
+    person = ""
     connections_string = imported_list[1]
     cleaned_list = []
-    #user_A_found = False
-    #user_B_found = False
     if user_A not in user_list:
-        return network
+        return False
     else:
         if user_B not in user_list:
-            return network
-    #for idx, element in enumerate(imported_list): #looping through each string in imported_list and keeping count as we go
+            return False
+    for idx, element in enumerate(imported_list): #looping through each string in imported_list and keeping count as we go
         #print(element)
-        #person, connections_string = element.split(" is connected to ") #splitting the strings into names and the connection values
-    for element in imported_list:
-        if element == user_A: #checking if the name of the person matches the passed in name
-            user_A_found = True
-            if user_B in connections_string:
-                return network
-            else:
-                connections_string = imported_list[1].append(user_B)
-                element.replace(connections, network[0]) #this is me trying to figure out how to use replace to swap the old string for my new one from above
-            #connections = [element.strip(), cleaned_list] #stripping of while space to make a clean list
+        person, connections_string = element.split(" is connected to ") #splitting the strings into names and the connection values
+        for element in imported_list:
+            if person == user_A: #checking if the name of the person matches the passed in name
+                if user_B in connections_string:
+                    return network
+                else:
+                    connections_string = imported_list[idx] + ", " + user_B
+                    imported_list[idx] = connections_string #this is me trying to figure out how to use replace to swap the old string for my new one from above
+                #connections = [element.strip(), cleaned_list] #stripping of while space to make a clean list"""
     if cleaned_list == []: #if the user isn't part of the network, return None
         return None
     #if user_B in links:
@@ -271,10 +268,6 @@ def add_connection(network, user_A, user_B):
     #else:
     #    new_connection_string = user_A + " is connected to " + connections_string + ", " + user_B
     #    #imported_list[idx] = new_connection_string
-    #    user_B_found = True
-
-    if not user_A_found or not user_B_found:
-        return False
     return network
 
 """def add_connection_map(network, user_A, user_B):
@@ -425,21 +418,18 @@ def find_path_to_friend(network, user_A, user_B):
     print([connections_output, likes_output])"""
 
 net = (create_data_structure(example_input))
-# print (net)                                               done
-#print (get_connections(net, "John"))                       done
-#print (get_connections(net, "Mercedes"))                   done
-#print (get_connections(net, "Olive"))                      done
-#print (get_games_liked(net, "Sam"))                        done
-#print (get_games_liked(net, "Bill"))                       done
-#print (get_games_liked(net, "John"))                       done
-#connection = add_connection_map(net, "John", "Donald")
-#print(connection)
-#pretty_print_network(net)
-#print(add_connection(net, "John", "Freda"))                 #working on this
-#print(add_connection(net, "John", "Debra"))
-#print(get_user_list(net))#done
-print (add_new_user(net, "Debra", []))
-print (add_new_user(net, "Nick", ["Seven Schemers", "The Movie: The Game"])) # True
+# print (net)                                                                           done
+#print (get_connections(net, "John"))                                                   done
+#print (get_connections(net, "Mercedes"))                                               done
+#print (get_connections(net, "Olive"))                                                  done
+#print (get_games_liked(net, "Sam"))                                                    done
+#print (get_games_liked(net, "Bill"))                                                   done
+#print (get_games_liked(net, "John"))                                                   done
+#print(add_connection(net, "John", "Freda"))                                            done
+#print(add_connection(net, "John", "Debra"))                                            done
+#print(get_user_list(net))                                                              done
+#print (add_new_user(net, "Debra", []))                                                 done
+#print (add_new_user(net, "Nick", ["Seven Schemers", "The Movie: The Game"])) # True    done
 #print (get_secondary_connections(net, "Mercedes"))
 #print (count_common_connections(net, "Mercedes", "John"))
 #print (find_path_to_friend(net, "John", "Ollie"))
