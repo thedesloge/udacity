@@ -308,19 +308,21 @@ def add_connection(network, user_A, user_B):
 #   - If the user already exists in network, return network *UNCHANGED* (do not change
 #     the user's game preferences)
 def add_new_user(network, user, games): ##I think this section is complete.  It seems to work correctly for all the cases provided.
-    user_list = get_user_list(network)
-    games_liked = network[1]
-    connections = network[0]
-    if user in user_list:
+    user_list = get_user_list(network) #creating a list of users in the network to check if the user is already part of the network
+    games_liked = network[1] #getting the original games_liked list
+    connections = network[0] #getting the original connections list
+    if user in user_list: #if the user is part of the network already, return the network unchanged
         return network
-    else:
-        new_connections_string = user + " is connected to "
-        games_string = ', '.join(games)
-        new_games_liked = user + " likes to play " + games_string
-        connections.append(new_connections_string)
-        games_liked.append(new_games_liked)
+    else: #if the user isn't part of the network, we are going to add them to the network
+        new_connections_string = user + " is connected to " # making the new user and the string "is connected to" into one useful string
+        games_string = ', '.join(games) #making the games list into a string separated by commas
+        new_games_liked = user + " likes to play " + games_string #adding the user and games together into one string
+        connections.append(new_connections_string) #appending the new user into the connections list
+        games_liked.append(new_games_liked) # appending the new user's likes to the games list
         #print (connections, games_liked)
-        return connections, games_liked
+        network[0] = connections
+        network[1] = games_liked
+        return connections, games_liked, network #returning the new lists
         #print("they're not in the network") #this is the part I'm on right now.  Trying to figure out how to add the new user, I have the base case finished.
         #return network
 		
