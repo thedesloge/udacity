@@ -356,8 +356,15 @@ def get_secondary_connections(network, user): #this section is complete and foll
 # Return: 
 #   The number of connections in common (as an integer).
 #   - If user_A or user_B is not in network, return False.
-def count_common_connections(network, user_A, user_B):
-    return 0
+def count_common_connections(network, user_A, user_B): #this section is now complete and uses sets to count the number of commonalities
+    user_list = get_user_list(network) #getting the list of users in the network to check if the passed in users are a part of the network
+    user_A_connections = get_connections(network, user_A) # getting the connections of the first user
+    user_B_connections = get_connections(network, user_B) # getting the connections of the second user
+    counter = 0 #initializing the counter to zero
+    if user_A not in user_list or user_B not in user_list: # if the users aren't part of the network, return False
+        return False
+    counter = len(set(user_A_connections[1]).intersection(user_B_connections[1])) #comparing the connections of user_A and user_B as sets, and then finding the length of that new set
+    return int(counter) #returning the number as an int
 
 # ----------------------------------------------------------------------------- 
 # find_path_to_friend(network, user_A, user_B): 
@@ -435,6 +442,6 @@ net = (create_data_structure(example_input))
 #print (add_new_user(net, "Debra", []))                                                 #done
 #print (add_new_user(net, "Nick", ["Seven Schemers", "The Movie: The Game"])) # True    #done
 #print (get_secondary_connections(net, "Mercedes"))                                     #done
-#print (count_common_connections(net, "Mercedes", "John"))                              #next up
-#print (find_path_to_friend(net, "John", "Ollie"))                                      #next up
+#print (count_common_connections(net, "Mercedes", "John"))                              #done
+#print (find_path_to_friend(net, "John", "Ollie"))                                      #working on this
 
