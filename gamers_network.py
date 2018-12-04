@@ -398,9 +398,26 @@ def count_common_connections(network, user_A, user_B): #this section is now comp
 #   in this procedure to keep track of nodes already visited in your search. You 
 #   may safely add default parameters since all calls used in the grading script 
 #   will only include the arguments network, user_A, and user_B.
+path = []
+viewed_people = []
 def find_path_to_friend(network, user_A, user_B):
-	# your RECURSIVE solution here!
-	return None
+    user_list = get_user_list(network)
+    user_A_connections = get_connections(network, user_A)
+    if user_A not in user_list or user_B not in user_list:
+        return None
+    else:
+        path.append(user_A)
+        if user_B in user_A_connections[1]:
+            path.append(user_B)
+            return path
+        else:
+            for element in user_A_connections[1]:
+                if element not in viewed_people:
+                    viewed_people.append(element)
+                    find_path_to_friend(network, element, user_B)
+                    return path
+                else:
+                    continue
 
 # Make-Your-Own-Procedure (MYOP)
 # ----------------------------------------------------------------------------- 
@@ -443,5 +460,5 @@ net = (create_data_structure(example_input))
 #print (add_new_user(net, "Nick", ["Seven Schemers", "The Movie: The Game"])) # True    #done
 #print (get_secondary_connections(net, "Mercedes"))                                     #done
 #print (count_common_connections(net, "Mercedes", "John"))                              #done
-#print (find_path_to_friend(net, "John", "Ollie"))                                      #working on this
+print (find_path_to_friend(net, "John", "Ollie"))                                      #working on this
 
