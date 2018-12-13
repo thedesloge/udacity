@@ -39,6 +39,7 @@ def deal(numhands, n, deck=deck):
             else:
                 #hand.append(working_hand) = working_hand
                 hand[current_hands_index] = working_hand
+                working_hand = []
         print (hand, hand[1], hand[2])
 
 
