@@ -15,10 +15,10 @@ def compile_word(word):
     index = -1
     answer = ''
     split_string = list(word)
+    finding_letters = re.findall('[A-Z]', word)
+    if len(word) != len(finding_letters):
+        return str(word)
     for letter in split_string:
-        finding_letters = re.findall('[A-Z]', word)
-        if len(word) != len(finding_letters):
-            return str(word)
         multiple = str(10**(abs(index) - 1))
         answer = answer + "+" + (split_string[index]) + '*' + multiple
         index = index - 1
