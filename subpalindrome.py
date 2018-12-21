@@ -19,7 +19,7 @@ def longest_subpalindrome_slice(text):
     "Return (i, j) such that text[i:j] is the longest palindrome in text."
     # Your code here
     longest_found = []
-    location = 0
+    location = 1
     lowercase_text = text.lower()
     if ''.join(reversed(lowercase_text)) == lowercase_text:
         return text
@@ -56,6 +56,6 @@ def test():
     return 'tests pass'
 
 
-print (longest_subpalindrome_slice('racecar'))
-print (longest_subpalindrome_slice('Racecar'))
+#print (longest_subpalindrome_slice('racecar'))
+#print (longest_subpalindrome_slice('Racecar'))
 print (longest_subpalindrome_slice('RacecarX'))
