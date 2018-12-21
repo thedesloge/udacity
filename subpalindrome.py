@@ -25,6 +25,7 @@ def longest_subpalindrome_slice(text):
         return text
     else:
         for letter in lowercase_text: #looping through the lowercase string
+            print(lowercase_text[location])
             if letter == lowercase_text[location]: #if the letter we are looking at matches the letter in the index location we are at, make a new string
                 string = lowercase_text[location:lowercase_text.index(letter)] #the new string is from the index location to where we found a matching letter
                 if string == string[:: -1]: #check if the string is the same forward and backwards
@@ -57,10 +58,4 @@ def test():
 
 print (longest_subpalindrome_slice('racecar'))
 print (longest_subpalindrome_slice('Racecar'))
-print (longest_subpalindrome_slice('RacecarX'))"""
-print (longest_subpalindrome_slice('Race carr'))
-print (longest_subpalindrome_slice(''))
-print (longest_subpalindrome_slice('something rac e car going'))
-print (longest_subpalindrome_slice('xxxxx'))
-print (longest_subpalindrome_slice('Mad am I ma dam.'))"""
-#test()
+print (longest_subpalindrome_slice('RacecarX'))
