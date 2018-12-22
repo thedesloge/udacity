@@ -21,7 +21,7 @@ def longest_subpalindrome_slice(text):
     longest_found = []
     location = -1
     lowercase_text = text.lower()
-    if ''.join(reversed(lowercase_text)) == lowercase_text:
+    if ''.join(reversed(lowercase_text)) == lowercase_text: #if the whole phrase is the same forward and reversed, just return it because we're done.
         return lowercase_text
     else:
         for letter in lowercase_text: #looping through the lowercase string
@@ -36,7 +36,7 @@ def longest_subpalindrome_slice(text):
                     #Get the string from our letter to the current index
                     string = lowercase_text[location:curr_index]
                     # Check if its a palindrome
-                    if len(string) == 1 and len(lowercase_text) != 1:
+                    if len(string) == 1 and len(lowercase_text) != 1: #preventing us from adding single character strings for each letter in the string
                         continue
                     if string == string[:: -1]: #check if the string is the same forward and backwards
                         if len(string) > len(longest_found): #if it is, it's a palindrome and we need to save it if it's longer than the longest we have found already
