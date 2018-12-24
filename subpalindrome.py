@@ -35,14 +35,14 @@ def longest_subpalindrome_slice(text):
                 if letter == letter2:
                     #Get the string from our letter to the current index
                     string = lowercase_text[location:curr_index]
-                    # Check if its a palindrome
-                    if len(string) == 1 and len(lowercase_text) != 1: #preventing us from adding single character strings for each letter in the string
-                        continue
+                    # Check if it's a palindrome
+                    #if len(string) == 1 and len(lowercase_text) != 1: #preventing us from adding single character strings for each letter in the string
+                    #    continue
                     if string == string[:: -1]: #check if the string is the same forward and backwards
-                        if len(string) > len(longest_found): #if it is, it's a palindrome and we need to save it if it's longer than the longest we have found already
-                            longest_found = string #add it to the longest_found list if it's the longest
-                        elif len(string) == len(longest_found): #if it's tied for the longest, we add it to the list so we have both
-                            longest_found = longest_found + " " + string
+                        if longest_found == []: #if it is, it's a palindrome and we need to save it if it's longer than the longest we have found already
+                            longest_found = [string] #add it to the longest_found list if it's the longest
+                        elif len(string) == len(longest_found[0]): #if it's tied for the longest, we add it to the list so we have both
+                            longest_found = longest_found.append(string)
 
 
         return longest_found
@@ -65,13 +65,13 @@ def test():
     return 'tests pass'
 
 
-print (longest_subpalindrome_slice('racecar')) #racecar
-print (longest_subpalindrome_slice('Racecar')) #racecar
-print (longest_subpalindrome_slice('RacecarX')) #racecar
+#print (longest_subpalindrome_slice('racecar')) #racecar
+#print (longest_subpalindrome_slice('Racecar')) #racecar
+#print (longest_subpalindrome_slice('RacecarX')) #racecar
 print (longest_subpalindrome_slice('Race carr')) #rr
-print (longest_subpalindrome_slice('')) #(space)
-print (longest_subpalindrome_slice('something rac e car going')) #g rac e car g
-print (longest_subpalindrome_slice('xxxxx')) #xxxxx
-print (longest_subpalindrome_slice('Mad am I ma dam.')) #mad am I am dam
-print (longest_subpalindrome_slice('a')) #a
+#print (longest_subpalindrome_slice('')) #(space)
+#print (longest_subpalindrome_slice('something rac e car going')) #g rac e car g
+#print (longest_subpalindrome_slice('xxxxx')) #xxxxx
+#print (longest_subpalindrome_slice('Mad am I ma dam.')) #mad am I am dam
+#print (longest_subpalindrome_slice('a')) #a
 
