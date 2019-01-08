@@ -10,12 +10,12 @@ import re
 
 
 def findtags(text):
-    links = re.search('<', text)
-    return links
+    found = re.findall('(<\s*\w+\s*(\w+\s*=\s*"[^"]*"\s*)*>)', text)
+    output = []
+    for item in found:
+        output.append(item[0])
 
-    # your code here
-
-
+    return output
 testtext1 = """
 My favorite website in the world is probably 
 <a href="www.udacity.com">Udacity</a>. If you want 
@@ -37,6 +37,8 @@ doing <         b           > this <   /b    >, Though I
 don't know why you would ever want to.
 """
 
+#text = testtext1
+
 
 def test():
     assert findtags(testtext1) == ['<a href="www.udacity.com">',
@@ -47,5 +49,4 @@ def test():
     return 'tests pass'
 
 
-print
-test()
+print(test())
